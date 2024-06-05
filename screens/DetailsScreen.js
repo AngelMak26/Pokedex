@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
 import axios from 'axios';
-import { Card, Title, Paragraph, ActivityIndicator, Colors } from 'react-native-paper';
 
 const DetailsScreen = ({ route }) => {
   const { pokemonName } = route.params;
@@ -18,32 +17,31 @@ const DetailsScreen = ({ route }) => {
   }, [pokemonName]);
 
   if (!pokemonDetails) {
-    return <ActivityIndicator animating={true} color={Colors.red800} size="large" />;
+    return <Text>Loading...</Text>;
   }
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Card style={styles.card}>
-        <Card.Cover source={{ uri: pokemonDetails.sprites.front_default }} style={styles.image} />
-        <Card.Content>
-          <Title style={styles.title}>{pokemonDetails.name.toUpperCase()}</Title>
-          <Paragraph style={styles.details}>Height: {pokemonDetails.height}</Paragraph>
-          <Paragraph style={styles.details}>Weight: {pokemonDetails.weight}</Paragraph>
-          <Paragraph style={styles.details}>Base Experience: {pokemonDetails.base_experience}</Paragraph>
-          <Paragraph style={styles.details}>Abilities:</Paragraph>
-          {pokemonDetails.abilities.map((ability, index) => (
-            <Paragraph key={index} style={styles.detailItem}>- {ability.ability.name}</Paragraph>
-          ))}
-          <Paragraph style={styles.details}>Types:</Paragraph>
-          {pokemonDetails.types.map((type, index) => (
-            <Paragraph key={index} style={styles.detailItem}>- {type.type.name}</Paragraph>
-          ))}
-          <Paragraph style={styles.details}>Stats:</Paragraph>
-          {pokemonDetails.stats.map((stat, index) => (
-            <Paragraph key={index} style={styles.detailItem}>- {stat.stat.name}: {stat.base_stat}</Paragraph>
-          ))}
-        </Card.Content>
-      </Card>
+      <Text style={styles.title}>{pokemonDetails.name.toUpperCase()}</Text>
+      <Image
+        source={{ uri: pokemonDetails.sprites.front_default }}
+        style={styles.image}
+      />
+      <Text style={styles.details}>Height: {pokemonDetails.height}</Text>
+      <Text style={styles.details}>Weight: {pokemonDetails.weight}</Text>
+      <Text style={styles.details}>Base Experience: {pokemonDetails.base_experience}</Text>
+      <Text style={styles.details}>Abilities:</Text>
+      {pokemonDetails.abilities.map((ability, index) => (
+        <Text key={index} style={styles.detailItem}>- {ability.ability.name}</Text>
+      ))}
+      <Text style={styles.details}>Types:</Text>
+      {pokemonDetails.types.map((type, index) => (
+        <Text key={index} style={styles.detailItem}>- {type.type.name}</Text>
+      ))}
+      <Text style={styles.details}>Stats:</Text>
+      {pokemonDetails.stats.map((stat, index) => (
+        <Text key={index} style={styles.detailItem}>- {stat.stat.name}: {stat.base_stat}</Text>
+      ))}
     </ScrollView>
   );
 };
@@ -51,35 +49,32 @@ const DetailsScreen = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
+    alignItems: 'center',
     padding: 16,
-    backgroundColor: '#f0f0f0',
-  },
-  card: {
-    width: '100%',
-    backgroundColor: '#fff',
-    borderRadius: 16,
-    elevation: 4,
-  },
-  image: {
-    width: 150,
-    height: 150,
-    alignSelf: 'center',
-    marginVertical: 16,
+    backgroundColor: '#f8f8f8',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    textAlign: 'center',
-    color: '#3B4CCA',
+    marginBottom: 16,
+  },
+  image: {
+    width: 150,
+    height: 150,
+    marginBottom: 16,
   },
   details: {
     fontSize: 18,
     fontWeight: 'bold',
     marginTop: 16,
+    textAlign: 'left',
+    alignSelf: 'stretch',
   },
   detailItem: {
     fontSize: 16,
     marginVertical: 2,
+    textAlign: 'left',
+    alignSelf: 'stretch',
   },
 });
 
