@@ -17,7 +17,7 @@ const DetailsScreen = ({ route }) => {
   }, [pokemonName]);
 
   if (!pokemonDetails) {
-    return <Text>Loading...</Text>;
+    return <Text style={styles.loadingText}>Loading...</Text>;
   }
 
   return (
@@ -27,21 +27,23 @@ const DetailsScreen = ({ route }) => {
         source={{ uri: pokemonDetails.sprites.front_default }}
         style={styles.image}
       />
-      <Text style={styles.details}>Height: {pokemonDetails.height}</Text>
-      <Text style={styles.details}>Weight: {pokemonDetails.weight}</Text>
-      <Text style={styles.details}>Base Experience: {pokemonDetails.base_experience}</Text>
-      <Text style={styles.details}>Abilities:</Text>
-      {pokemonDetails.abilities.map((ability, index) => (
-        <Text key={index} style={styles.detailItem}>- {ability.ability.name}</Text>
-      ))}
-      <Text style={styles.details}>Types:</Text>
-      {pokemonDetails.types.map((type, index) => (
-        <Text key={index} style={styles.detailItem}>- {type.type.name}</Text>
-      ))}
-      <Text style={styles.details}>Stats:</Text>
-      {pokemonDetails.stats.map((stat, index) => (
-        <Text key={index} style={styles.detailItem}>- {stat.stat.name}: {stat.base_stat}</Text>
-      ))}
+      <View style={styles.detailsContainer}>
+        <Text style={styles.details}>Height: {pokemonDetails.height}</Text>
+        <Text style={styles.details}>Weight: {pokemonDetails.weight}</Text>
+        <Text style={styles.details}>Base Experience: {pokemonDetails.base_experience}</Text>
+        <Text style={styles.details}>Abilities:</Text>
+        {pokemonDetails.abilities.map((ability, index) => (
+          <Text key={index} style={styles.detailItem}>- {ability.ability.name}</Text>
+        ))}
+        <Text style={styles.details}>Types:</Text>
+        {pokemonDetails.types.map((type, index) => (
+          <Text key={index} style={styles.detailItem}>- {type.type.name}</Text>
+        ))}
+        <Text style={styles.details}>Stats:</Text>
+        {pokemonDetails.stats.map((stat, index) => (
+          <Text key={index} style={styles.detailItem}>- {stat.stat.name}: {stat.base_stat}</Text>
+        ))}
+      </View>
     </ScrollView>
   );
 };
@@ -51,11 +53,12 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     alignItems: 'center',
     padding: 16,
-    backgroundColor: '#f8f8f8',
+    backgroundColor: '#F0F0F0',
   },
   title: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
+    color: '#3B4CCA',
     marginBottom: 16,
   },
   image: {
@@ -63,18 +66,30 @@ const styles = StyleSheet.create({
     height: 150,
     marginBottom: 16,
   },
+  detailsContainer: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 8,
+    padding: 16,
+    elevation: 2,
+    width: '100%',
+  },
   details: {
     fontSize: 18,
     fontWeight: 'bold',
     marginTop: 16,
-    textAlign: 'left',
-    alignSelf: 'stretch',
+    color: '#212121',
   },
   detailItem: {
     fontSize: 16,
     marginVertical: 2,
-    textAlign: 'left',
-    alignSelf: 'stretch',
+    color: '#757575',
+  },
+  loadingText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#3B4CCA',
+    textAlign: 'center',
+    marginTop: 20,
   },
 });
 

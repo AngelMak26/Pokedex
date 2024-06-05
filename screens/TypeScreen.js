@@ -23,7 +23,7 @@ const TypeScreen = ({ route, navigation }) => {
   return (
     <View style={styles.container}>
       {loading ? (
-        <ActivityIndicator animating={true} size="large" />
+        <ActivityIndicator animating={true} size="large" color="#3B4CCA" />
       ) : (
         <FlatList
           data={pokemon}
@@ -34,7 +34,7 @@ const TypeScreen = ({ route, navigation }) => {
               onPress={() => navigation.navigate('Details', { pokemonName: item.name })}
               style={styles.listItem}
               titleStyle={styles.listItemText}
-              left={props => <List.Icon {...props} icon="pokeball" />}
+              left={props => <List.Icon {...props} icon="pokeball" color="#3B4CCA" />}
             />
           )}
         />
@@ -48,17 +48,18 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 16,
-    backgroundColor: '#f8f8f8',
+    backgroundColor: '#F0F0F0',
   },
   listItem: {
     marginVertical: 4,
-    backgroundColor: '#fff',
+    backgroundColor: '#FFFFFF',
     borderRadius: 8,
     elevation: 2,
   },
   listItemText: {
     fontSize: 18,
     textTransform: 'capitalize',
+    color: '#3B4CCA',
   },
 });
 
