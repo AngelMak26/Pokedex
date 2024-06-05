@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, FlatList, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import axios from 'axios';
-import { List } from 'react-native-paper';
+import { List, Appbar, Colors } from 'react-native-paper';
 
 const HomeScreen = ({ navigation }) => {
   const [types, setTypes] = useState([]);
@@ -17,24 +17,29 @@ const HomeScreen = ({ navigation }) => {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={types}
-        keyExtractor={(item) => item.name}
-        renderItem={({ item }) => (
-          <TouchableOpacity 
-            style={styles.listItem}
-            onPress={() => navigation.navigate('Type', { typeName: item.name, typeUrl: item.url })}
-          >
-            <List.Item
-              title={item.name}
-              titleStyle={styles.listItemText}
-              left={props => <List.Icon {...props} icon="pokeball" />}
-            />
-          </TouchableOpacity>
-        )}
-      />
-    </View>
+    <>
+      <Appbar.Header>
+        <Appbar.Content title="Pokedex" />
+      </Appbar.Header>
+      <View style={styles.container}>
+        <FlatList
+          data={types}
+          keyExtractor={(item) => item.name}
+          renderItem={({ item }) => (
+            <TouchableOpacity 
+              style={styles.listItem}
+              onPress={() => navigation.navigate('Type', { typeName: item.name, typeUrl: item.url })}
+            >
+              <List.Item
+                title={item.name}
+                titleStyle={styles.listItemText}
+                left={props => <List.Icon {...props} icon="pokeball" color={Colors.red500} />}
+              />
+            </TouchableOpacity>
+          )}
+        />
+      </View>
+    </>
   );
 };
 
@@ -45,7 +50,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f8f8f8',
   },
   listItem: {
-    marginVertical: 4,
+    marginVertical: 8,
     backgroundColor: '#fff',
     borderRadius: 8,
     elevation: 2,
@@ -53,6 +58,7 @@ const styles = StyleSheet.create({
   listItemText: {
     fontSize: 18,
     textTransform: 'capitalize',
+    color: '#3B4CCA',
   },
 });
 

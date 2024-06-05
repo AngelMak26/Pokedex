@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
-import { List, ActivityIndicator } from 'react-native-paper';
+import { List, ActivityIndicator, Appbar, Colors } from 'react-native-paper';
 import axios from 'axios';
 
 const TypeScreen = ({ route, navigation }) => {
@@ -21,25 +21,31 @@ const TypeScreen = ({ route, navigation }) => {
   }, [typeUrl]);
 
   return (
-    <View style={styles.container}>
-      {loading ? (
-        <ActivityIndicator animating={true} size="large" />
-      ) : (
-        <FlatList
-          data={pokemon}
-          keyExtractor={(item) => item.name}
-          renderItem={({ item }) => (
-            <List.Item
-              title={item.name}
-              onPress={() => navigation.navigate('Details', { pokemonName: item.name })}
-              style={styles.listItem}
-              titleStyle={styles.listItemText}
-              left={props => <List.Icon {...props} icon="pokeball" />}
-            />
-          )}
-        />
-      )}
-    </View>
+    <>
+      <Appbar.Header>
+        <Appbar.BackAction onPress={() => navigation.goBack()} />
+        <Appbar.Content title="Pokemon Types" />
+      </Appbar.Header>
+      <View style={styles.container}>
+        {loading ? (
+          <ActivityIndicator animating={true} color={Colors.red800} size="large" />
+        ) : (
+          <FlatList
+            data={pokemon}
+            keyExtractor={(item) => item.name}
+            renderItem={({ item }) => (
+              <List.Item
+                title={item.name}
+                onPress={() => navigation.navigate('Details', { pokemonName: item.name })}
+                style={styles.listItem}
+                titleStyle={styles.listItemText}
+                left={props => <List.Icon {...props} icon="pokeball" color={Colors.red500} />}
+              />
+            )}
+          />
+        )}
+      </View>
+    </>
   );
 };
 
@@ -48,10 +54,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 16,
-    backgroundColor: '#f8f8f8',
+    backgroundColor: '#f0f0f0',
   },
   listItem: {
-    marginVertical: 4,
+    marginVertical: 8,
     backgroundColor: '#fff',
     borderRadius: 8,
     elevation: 2,
@@ -59,6 +65,7 @@ const styles = StyleSheet.create({
   listItemText: {
     fontSize: 18,
     textTransform: 'capitalize',
+    color: '#3B4CCA',
   },
 });
 
