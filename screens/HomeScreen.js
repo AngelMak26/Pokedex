@@ -1,33 +1,54 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { View, FlatList, StyleSheet } from 'react-native';
+import { List, ActivityIndicator } from 'react-native-paper';
 import axios from 'axios';
 
 const HomeScreen = ({ navigation }) => {
-  const [types, setTypes] = useState([]);
+  const [pokemon, setPokemon] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('https://pokeapi.co/api/v2/type')
+    axios.get('https://pokeapi.co/api/v2/pokemon?limit=20')
       .then(response => {
-        setTypes(response.data.results);
+        setPokemon(response.data.results);
+        setLoading(false);
       })
       .catch(error => {
         console.error(error);
+        setLoading(false);
       });
   }, []);
 
   return (
-    <View>
-      <FlatList
-        data={types}
-        keyExtractor={(item) => item.name}
-        renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => navigation.navigate('Type', { typeName: item.name })}>
-            <Text>{item.name}</Text>
-          </TouchableOpacity>
-        )}
-      />
+    <View style={styles.container}>
+      {loading ? (
+        <ActivityIndicator animating={true} size="large" />
+      ) : (
+        <FlatList
+          data={pokemon}
+          keyExtractor={(item) => item.name}
+          renderItem={({ item }) => (
+            <List.Item
+              title={item.name}
+              onPress={() => navigation.navigate('Details', { pokemonName: item.name })}
+              style={styles.listItem}
+            />
+          )}
+        />
+      )}
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  listItem: {
+    marginVertical: 4,
+    marginHorizontal: 16,
+  },
+});
 
 export default HomeScreen;

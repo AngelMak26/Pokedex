@@ -1,20 +1,11 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from './screens/HomeScreen';
-import TypeScreen from './screens/TypeScreen';
-import DetailsScreen from './screens/DetailsScreen';
-
-const Stack = createStackNavigator();
+import { Provider as PaperProvider } from 'react-native-paper';
+import StackNavigator from './navigation/StackNavigator';
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Type" component={TypeScreen} />
-        <Stack.Screen name="Details" component={DetailsScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <PaperProvider>
+      <StackNavigator />
+    </PaperProvider>
   );
 }
