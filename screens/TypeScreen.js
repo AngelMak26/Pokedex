@@ -2,26 +2,27 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 
-const HomeScreen = ({ navigation }) => {
-  const [types, setTypes] = useState([]);
+const TypeScreen = ({ route, navigation }) => {
+  const { typeName } = route.params;
+  const [pokemon, setPokemon] = useState([]);
 
   useEffect(() => {
-    axios.get('https://pokeapi.co/api/v2/type')
+    axios.get(`https://pokeapi.co/api/v2/type/${typeName}`)
       .then(response => {
-        setTypes(response.data.results);
+        setPokemon(response.data.pokemon.map(p => p.pokemon));
       })
       .catch(error => {
         console.error(error);
       });
-  }, []);
+  }, [typeName]);
 
   return (
     <View>
       <FlatList
-        data={types}
+        data={pokemon}
         keyExtractor={(item) => item.name}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => navigation.navigate('Type', { typeName: item.name })}>
+          <TouchableOpacity onPress={() => navigation.navigate('Details', { pokemonName: item.name })}>
             <Text>{item.name}</Text>
           </TouchableOpacity>
         )}
@@ -30,4 +31,4 @@ const HomeScreen = ({ navigation }) => {
   );
 };
 
-export default HomeScreen;
+export default TypeScreen;

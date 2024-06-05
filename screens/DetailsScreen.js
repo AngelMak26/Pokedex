@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text } from 'react-native';
 import axios from 'axios';
 
 const DetailsScreen = ({ route }) => {
@@ -14,7 +14,7 @@ const DetailsScreen = ({ route }) => {
       .catch(error => {
         console.error(error);
       });
-  }, []);
+  }, [pokemonName]);
 
   if (!pokemonDetails) {
     return <Text>Loading...</Text>;
@@ -22,13 +22,13 @@ const DetailsScreen = ({ route }) => {
 
   return (
     <View>
-      <Text>{pokemonDetails.name}</Text>
-      <Image source={{ uri: pokemonDetails.sprites.front_default }} style={{ width: 100, height: 100 }} />
+      <Text>Name: {pokemonDetails.name}</Text>
       <Text>Height: {pokemonDetails.height}</Text>
       <Text>Weight: {pokemonDetails.weight}</Text>
-      <Text>Type: {pokemonDetails.types.map(typeInfo => typeInfo.type.name).join(', ')}</Text>
+      <Text>Base Experience: {pokemonDetails.base_experience}</Text>
     </View>
   );
 };
 
 export default DetailsScreen;
+
