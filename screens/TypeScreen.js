@@ -33,6 +33,8 @@ const TypeScreen = ({ route, navigation }) => {
               title={item.name}
               onPress={() => navigation.navigate('Details', { pokemonName: item.name })}
               style={styles.listItem}
+              titleStyle={styles.listItemText}
+              left={props => <List.Icon {...props} icon="pokeball" />}
             />
           )}
         />
@@ -45,10 +47,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    padding: 16,
+    backgroundColor: '#f8f8f8',
   },
   listItem: {
     marginVertical: 4,
-    marginHorizontal: 16,
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    elevation: 2,
+  },
+  listItemText: {
+    fontSize: 18,
+    textTransform: 'capitalize',
   },
 });
 
